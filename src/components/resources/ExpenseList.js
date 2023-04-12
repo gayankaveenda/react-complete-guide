@@ -1,4 +1,5 @@
 import ExpenseItem from "../../components/ExpenseItem";
+import Card from "../styles/Card";
 import "./ExpenseList.css";
 
 const ExpenseAsList = (props) => {
@@ -13,7 +14,7 @@ const ExpenseAsList = (props) => {
       ></ExpenseItem>
     </div>
   ));
-  return listItems;
+  return <Card className='expenses'>{listItems}</Card>;
 };
 
 export default ExpenseAsList;

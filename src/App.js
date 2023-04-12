@@ -1,6 +1,4 @@
-import ExpenseItem from "./components/ExpenseItem";
 import ExpenseAsList from "./components/resources/ExpenseList";
-import "./components/resources/ExpenseList";
 
 function App() {
   const expenses = [
@@ -25,11 +23,7 @@ function App() {
     },
   ];
 
-  return (
-    <div className='expenses'>
-      <ExpenseAsList expenseList={expenses} />
-    </div>
-  );
+  return <ExpenseAsList expenseList={expenses} />;
 }
 
 export default App;
