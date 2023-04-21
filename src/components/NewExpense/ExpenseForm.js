@@ -5,6 +5,7 @@ import "./ExpenseForm.css";
 const NewExpenseForm = () => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
+  const [formDate, setFormDate] = useState(new Date(2020, 1, 1));
 
   const handleTitle = (e) => {
     setTitle((prevState) => {
@@ -14,12 +15,22 @@ const NewExpenseForm = () => {
     });
   };
 
-  const handleAmount = (event) => {
+  const handleAmount = (e) => {
     setAmount((prevState) => {
       console.log("Prev State of Amount " + prevState.amount);
-      return { ...prevState, amount: event.target.value};
+      console.log("Current Amount = " + e.target.value);
+      return { ...prevState, amount: e.target.value};
     });
   };
+
+  const handleFormDate = (e) => {
+    setFormDate( (prevState) => {
+        console.log("Previous Date = " + prevState.formDate);
+        console.log("Current Date = " + e.target.value);
+        console.log("Current Date = " + formDate);
+        return {...prevState, formDate: e.target.value};
+    });
+  }
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -28,6 +39,7 @@ const NewExpenseForm = () => {
     const expenseData = {
       newTitle: title,
       newAmount: amount,
+      newDate : formDate
     };
     console.log(expenseData);
   };
@@ -45,7 +57,7 @@ const NewExpenseForm = () => {
         </div>
         <div className="new-expense__control">
           <label>Date</label>
-          <input type="date" min={"2019-01-01"} />
+          <input type="date" min={"2019-01-01"}  onChange={handleFormDate}/>
         </div>
         <div className="new-expense__actions">
           <button type="submit">Add Expense</button>
