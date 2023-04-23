@@ -1,8 +1,9 @@
+import { useState } from "react";
 import ExpenseAsList from "./components/Expenses/ExpenseList";
 import NewExpense from "./components/NewExpense/NewExpense";
 
 function App() {
-  const expenses = [
+  const DEFAULT_LIST = [
     {
       id: "e1",
       title: "Toilet Paper",
@@ -26,12 +27,20 @@ function App() {
       title: "New Desk (Wooden)",
       amount: 450,
       date: "2021, 5, 12",
-    },
+    }
   ];
+
+  const [expenses, setExpenses] = useState(DEFAULT_LIST);
+
+  const updateExpensesHandler = (data) => {
+    //expenses.push(data);
+    setExpenses([...expenses, data]);
+    console.log(expenses);
+  }
 
   return (
     <div>
-      <NewExpense />
+      <NewExpense addExpenseToExpenses = {updateExpensesHandler} />
       <ExpenseAsList expenseList={expenses} />;
     </div>
   );

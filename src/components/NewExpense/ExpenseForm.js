@@ -2,46 +2,51 @@ import React, { useState } from "react";
 
 import "./ExpenseForm.css";
 
-const NewExpenseForm = () => {
+const NewExpenseForm = (props) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
   const [formDate, setFormDate] = useState(new Date(2020, 1, 1));
 
   const handleTitle = (e) => {
-    setTitle((prevState) => {
-      console.log("prevTitle = " + prevState.title);
-      console.log("e.target.value = " + e.target.value);
-      return { ...prevState, title: e.target.value };
-    });
+   setTitle(e.target.value);
+    // setTitle((prevState) => {
+    //   console.log("prevTitle = " + prevState.title);
+    //   console.log("e.target.value = " + e.target.value);
+    //   return { ...prevState, title: e.target.value };
+    // });
   };
 
   const handleAmount = (e) => {
-    setAmount((prevState) => {
-      console.log("Prev State of Amount " + prevState.amount);
-      console.log("Current Amount = " + e.target.value);
-      return { ...prevState, amount: e.target.value};
-    });
+    setAmount(e.target.value);
+    // setAmount((prevState) => {
+    //   console.log("Prev State of Amount " + prevState.amount);
+    //   console.log("Current Amount = " + e.target.value);
+    //   return { ...prevState, amount: e.target.value};
+    // });
   };
 
   const handleFormDate = (e) => {
-    setFormDate( (prevState) => {
-        console.log("Previous Date = " + prevState.formDate);
-        console.log("Current Date = " + e.target.value);
-        console.log("Current Date = " + formDate);
-        return {...prevState, formDate: e.target.value};
-    });
+    // setFormDate( (prevState) => {
+    //     console.log("Previous Date = " + prevState.formDate);
+    //     console.log("Current Date = " + e.target.value);
+    //     console.log("Current Date = " + formDate);
+    //     return {...prevState, formDate: e.target.value};
+    // });
+    setFormDate(e.target.value);
   }
 
   const submitHandler = (event) => {
     event.preventDefault();
     console.log(event);
 
-    const expenseData = {
-      newTitle: title,
-      newAmount: amount,
-      newDate : formDate
-    };
-    console.log(expenseData);
+    // const expenseData = {
+    //   newTitle: title,
+    //   newAmount: amount,
+    //   newDate : formDate
+    // };
+    console.log({title,amount,formDate});
+
+    props.saveNewExpense({title,amount,date:formDate});
   };
 
   return (
