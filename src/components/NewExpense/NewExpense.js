@@ -5,14 +5,19 @@ import "./NewExpense.css";
 
 const NewExpense = (props) => {
   const addNewExpenseHandler = (newExpenseData) => {
-    // const myExpense = new Object();
-    // myExpense.title = newExpenseData.newTitle;
-    // myExpense.amount = newExpenseData.newAmount;
-    // myExpense.date = newExpenseData.newDate;
-    // myExpense.id = Math.random().toString();
+    //OPTION-1
+    // props.addExpenseToExpenses(newExpenseData);
+    // const clonedExpense = JSON.parse(JSON.stringify(newExpenseData));
+    // clonedExpense.id = Math.random().toString();
 
-    console.log(newExpenseData);
-    props.addExpenseToExpenses(newExpenseData);
+    //OPTION-2
+    const clonedExpense = {
+      ...newExpenseData,
+      id: Math.random().toString(),
+    };
+
+    console.log(clonedExpense);
+    props.addExpenseToExpenses(clonedExpense);
   };
 
   return (

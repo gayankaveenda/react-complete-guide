@@ -8,12 +8,15 @@ const NewExpenseForm = (props) => {
   const [formDate, setFormDate] = useState(new Date(2020, 1, 1));
 
   const handleTitle = (e) => {
-   setTitle(e.target.value);
-    // setTitle((prevState) => {
-    //   console.log("prevTitle = " + prevState.title);
-    //   console.log("e.target.value = " + e.target.value);
-    //   return { ...prevState, title: e.target.value };
-    // });
+    //  setTitle(e.target.value);
+    setTitle((prevState) => {
+      console.log("prevTitle = " + prevState.title);
+      console.log("e.target.value = " + e.target.value);
+      //watch it - {0: 'b', 1: 'o', 2: 'o', 3: 'k', 4: '1', title: 'book11'}
+      // this will create an object not just title but with its all past values so incorrect object
+      console.log({ ...prevState, title: e.target.value });
+      return e.target.value;
+    });
   };
 
   const handleAmount = (e) => {
@@ -21,6 +24,9 @@ const NewExpenseForm = (props) => {
     // setAmount((prevState) => {
     //   console.log("Prev State of Amount " + prevState.amount);
     //   console.log("Current Amount = " + e.target.value);
+    //   console.log({ ...prevState, amount: e.target.value});
+
+    //WATCHOUT: This returns an object with previous states array and append to the end
     //   return { ...prevState, amount: e.target.value};
     // });
   };
@@ -33,20 +39,32 @@ const NewExpenseForm = (props) => {
     //     return {...prevState, formDate: e.target.value};
     // });
     setFormDate(e.target.value);
-  }
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
     console.log(event);
 
-    // const expenseData = {
-    //   newTitle: title,
-    //   newAmount: amount,
-    //   newDate : formDate
-    // };
-    console.log({title,amount,formDate});
+    //OPTION-1
+    const expenseData = {
+      title: title,
+      amount: amount,
+      date: formDate,
+    };
 
-    props.saveNewExpense({title,amount,date:formDate});
+    //OPTION-2
+    // const expenseData = {
+    //   title: JSON.parse(JSON.stringify(title)),
+    //   amount: JSON.parse(JSON.stringify(amount)),
+    //   date : JSON.parse(JSON.stringify(formDate))
+    // };
+    console.log(expenseData);
+
+    // console.log({title,amount,formDate});
+    props.saveNewExpense(expenseData);
+
+    //Directly out of the form you can pass like below
+    // props.saveNewExpense({title,amount,date:formDate});
   };
 
   return (
@@ -62,7 +80,7 @@ const NewExpenseForm = (props) => {
         </div>
         <div className="new-expense__control">
           <label>Date</label>
-          <input type="date" min={"2019-01-01"}  onChange={handleFormDate}/>
+          <input type="date" min={"2019-01-01"} onChange={handleFormDate} />
         </div>
         <div className="new-expense__actions">
           <button type="submit">Add Expense</button>

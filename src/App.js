@@ -34,7 +34,10 @@ function App() {
 
   const updateExpensesHandler = (data) => {
     //expenses.push(data);
-    setExpenses([...expenses, data]);
+    // setExpenses([...expenses, data]);
+    setExpenses((prevExpenses) => {
+      return [ ...prevExpenses, data];
+    })
     console.log(expenses);
   }
 
