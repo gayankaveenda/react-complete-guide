@@ -2,17 +2,27 @@ import ExpenseItem from "./ExpenseItem";
 import ExpensesFilter from "./ExpensesFilter";
 import Card from "../UI/Card";
 import "./ExpenseList.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ExpenseAsList = (props) => {
-  const [expenses, setExpenses] = useState(props.expenseList);
   const [filteredExpenses, setFilteredExpenses] = useState(props.expenseList);
+  const [year, setYear] = useState("ALL");
+
+  useEffect(() => {
+    filterExpensesByDateHandler(year);
+  }, [props.expenseList]);
+
 
   const filterExpensesByDateHandler = (yearInput) => {
+    setYear(yearInput);
+    console.log("Before Filter");
+    console.log(filteredExpenses);
+
     setFilteredExpenses(
-      expenses.filter((expense) => filterByYear(expense, yearInput))
+      props.expenseList.filter((expense) => filterByYear(expense, yearInput))
     );
-    console.log(expenses);
+
+    console.log("After Filter");
     console.log(filteredExpenses);
     console.log("filterExpensesByDateHandler " + yearInput);
   };
@@ -36,6 +46,7 @@ const ExpenseAsList = (props) => {
       ></ExpenseItem>
     </div>
   ));
+
   return (
     <Card className="expenses">
       <ExpensesFilter filterExpenseByYear={filterExpensesByDateHandler} />

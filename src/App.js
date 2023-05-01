@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ExpenseAsList from "./components/Expenses/ExpenseList";
 import NewExpense from "./components/NewExpense/NewExpense";
 
@@ -31,13 +31,18 @@ function App() {
   ];
 
   const [expenses, setExpenses] = useState(DEFAULT_LIST);
+  
+  useEffect(() => {
+    console.log("use effect");
+    console.log(expenses);
+  }, [expenses]);
 
   const updateExpensesHandler = (data) => {
-    //expenses.push(data);
+    // expenses.push(data);
     // setExpenses([...expenses, data]);
     setExpenses((prevExpenses) => {
       return [ ...prevExpenses, data];
-    })
+    });
     console.log(expenses);
   }
 
